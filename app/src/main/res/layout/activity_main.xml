@@ -29,13 +29,6 @@
             android:id="@+id/buttonDetener"
             android:onClick="onClick"
             android:layout_marginRight="5dp" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CIRCULAR"
-            android:id="@+id/buttonCircular"
-            android:onClick="onClick"
-            android:layout_marginRight="5dp" />
     </LinearLayout>
         <LinearLayout
             android:id="@+id/LinearLayoutBotonesFila2"
@@ -44,13 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Listar SD"
-                android:id="@+id/buttonListar"
-                android:onClick="listadoCancionesSD"
-                android:layout_marginRight="5dp" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

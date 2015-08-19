@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         botonIniciar = (Button) findViewById(R.id.buttonIniciar);
@@ -47,53 +48,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nombreCancion = null;
         Log.d("******** INICIO: ", "ACTIVITY");
         rellenaListViewCanciones();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     public void onClick(View view) {
-        switch (view.getId()) {
 
+        switch (view.getId())
+        {
             case R.id.buttonIniciar:
-
-                if (nombreCancion == null) break;
+                if (nombreCancion == null)
+                {
+                    break;
+                }
                 // primera vez que se hace click en el boton de play
-                if (mp == null) {
-                    //mp = MediaPlayer.create(this, R.raw.tiki_tiki);
+                if (mp == null)
+                {
                     mp = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() +"/canciones/"+nombreCancion));
                     mp.start();
                     botonIniciar.setText("PAUSAR");
                 }
                 // se hace click en el boton para pausar la cancion
                 //if (mp != null && mp.isPlaying() && flag == 1) {
-                if (flag == 1) {
+                if (flag == 1)
+                {
                     mp.pause();
                     posicion = mp.getCurrentPosition();
                     botonIniciar.setText("CONTINUAR");
                 }
                 // se hace click para continuar la cancion
                 //if (!mp.isPlaying() && flag == 2) {
-                if (flag == 2) {
+                if (flag == 2)
+                {
                     mp.seekTo(posicion);
                     mp.start();
                     botonIniciar.setText("PAUSAR");
@@ -103,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.buttonDetener:
-                if (mp != null) {
+                if (mp != null)
+                {
                     mp.stop();
                     mp = null;
                     posicion = 0;
@@ -115,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonSalir:
                 // si estaba en pause o reproduciendo
-                if (mp != null) {
+                if (mp != null)
+                {
                     mp.stop();
                     mp.release();
                }
@@ -126,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void kakaPrueba() {
+
         // funcion para comprobar el funcionamiento de Git
     }
 
@@ -134,12 +150,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lv = (ListView) findViewById(R.id.listViewCanciones);
         arrayCanciones = new ArrayList<String>();
         String path = Environment.getExternalStorageDirectory().toString() + "/canciones";
-        //Log.d("Archivos: ", "Directorio: " + path);
         File f = new File(path);
         File archivos[] = f.listFiles();
         Log.d("******** Archivos: ", "Tamanyo: " + archivos.length);
 
-        for (int i = 0; i < archivos.length; i++) {
+        for (int i = 0; i < archivos.length; i++)
+        {
             // muestro en el log el listado de canciones del directorio 'canciones' de la SD
             Log.d("Archivos: ", "Nombre archivo: " + archivos[i].getName());
             String nombreArchivo = archivos[i].getName();
@@ -149,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // array as a third parameter.
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayCanciones);
             lv.setAdapter(arrayAdapter);
+
             // manejar click en la lista de canciones:
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
