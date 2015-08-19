@@ -1,6 +1,7 @@
 package com.example.armando.reproductoraudio2;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,16 +10,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private String nombreCancion;
+    private ListView lv;
+    private List<String> arrayCanciones;
     private static MediaPlayer mp;
     private int posicion = 0;
     private Button botonIniciar;
@@ -35,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         botonIniciar = (Button) findViewById(R.id.buttonIniciar);
         flag = 0;
+        nombreCancion = null;
+        Log.d("******** INICIO: ", "ACTIVITY");
+        rellenaListViewCanciones();
     }
 
     @Override
@@ -63,9 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
 
             case R.id.buttonIniciar:
+
+                if (nombreCancion == null) break;
                 // primera vez que se hace click en el boton de play
                 if (mp == null) {
-                    mp = MediaPlayer.create(this, R.raw.tiki_tiki);
+                    //mp = MediaPlayer.create(this, R.raw.tiki_tiki);
+                    mp = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() +"/canciones/"+nombreCancion));
                     mp.start();
                     botonIniciar.setText("PAUSAR");
                 }
@@ -90,55 +105,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonDetener:
                 if (mp != null) {
                     mp.stop();
+                    mp = null;
                     posicion = 0;
+                    flag = 0;
+                    nombreCancion = null;
+                    botonIniciar.setText("PLAY");
                 }
                 break;
 
             case R.id.buttonSalir:
+                // si estaba en pause o reproduciendo
                 if (mp != null) {
                     mp.stop();
                     mp.release();
-                    posicion = 0;
-                }
+               }
+                posicion = 0;
                 finish();
                 break;
         }
     }
 
-    public void listadoCancionesSD(final View view) {
+    public void kakaPrueba() {
+        // funcion para comprobar el funcionamiento de Git
+    }
 
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.TableLayoutPrincipal);
+    public void rellenaListViewCanciones() {
+
+        lv = (ListView) findViewById(R.id.listViewCanciones);
+        arrayCanciones = new ArrayList<String>();
         String path = Environment.getExternalStorageDirectory().toString() + "/canciones";
-        Log.d("Archivos: ", "Directorio: " + path);
+        //Log.d("Archivos: ", "Directorio: " + path);
         File f = new File(path);
         File archivos[] = f.listFiles();
-        Log.d("Archivos: ", "**Tamanyo: " + archivos.length);
+        Log.d("******** Archivos: ", "Tamanyo: " + archivos.length);
 
-       for (int i = 0; i < archivos.length; i++) {
+        for (int i = 0; i < archivos.length; i++) {
             // muestro en el log el listado de canciones del directorio 'canciones' de la SD
-            Log.d("Archivos: ", "Nombre archivo: "+archivos[i].getName());
-           String nombreArchivo = archivos[i].getName();
-            // creo una fila para la tableRow
-            TableRow tableRow = new TableRow(this);
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT ,TableRow.LayoutParams.WRAP_CONTENT);
-            tableRow.setLayoutParams(layoutParams);
-            TextView tv = new TextView(this);
-            tv.setText(nombreArchivo);
-            // anyado el textview a la fila
-            tableRow.addView(tv);
-            tableLayout.addView(tableRow, new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-
-           // gestionar click en las filas de la lista de canciones
-            tableRow.setOnClickListener(new View.OnClickListener()
-            {
+            Log.d("Archivos: ", "Nombre archivo: " + archivos[i].getName());
+            String nombreArchivo = archivos[i].getName();
+            arrayCanciones.add(nombreArchivo);
+            // This is the array adapter, it takes the context of the activity as a
+            // first parameter, the type of list view as a second parameter and your
+            // array as a third parameter.
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayCanciones);
+            lv.setAdapter(arrayAdapter);
+            // manejar click en la lista de canciones:
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View view1) {
-                    view.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
+                public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                    //view.setSelected(true);
+                    //view.setPressed(true);
+                    String item = (String) adapter.getItemAtPosition(position).toString();
+                    nombreCancion = item;
+                    //Log.d("Linea", "Nombre archivo: "+nombreCancion);
                 }
             });
         }
     }
 }
+
 
 
 
