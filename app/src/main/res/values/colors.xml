@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="darkblue">#2a2b84</color>
+    <color name="darkblue">#6280ff</color>
     <color name="fuxia">#ff1ebe</color>
     <color name="lightBlue">#32c8ea</color>
-    <color name="green">#55c183</color>
+    <color name="grey">#99a4a3</color>
+    <color name="darkgreen">#4d8d6b</color>
     <color name="yellow">#25c101</color>
     <color name="pink">#c1568b</color>
     <color name="white">#67fff5</color>
+    <color name="vino">#984150</color>
+
 </resources>

@@ -1,67 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:id="@+id/TableLayoutPrincipal"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:id="@+id/LinearLayoutPrincipal"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LinearLayoutBotonesFila1"
-        android:background="@color/white"
+        android:background="@color/lightBlue"
         android:layout_alignParentTop="true"
         android:layout_weight="0"
         android:orientation="horizontal">
         <Button
+            android:background="@color/lightBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PLAY"
             android:id="@+id/buttonIniciar"
-            android:onClick="onClick"
-            android:layout_marginRight="5dp" />
+            android:onClick="onClick"/>
         <Button
+            android:background="@color/lightBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STOP"
-            android:id="@+id/buttonDetener"
-            android:onClick="onClick"
-            android:layout_marginRight="5dp" />
+            android:text="SALIR"
+            android:id="@+id/buttonSalir"
+            android:onClick="onClick" />
     </LinearLayout>
-        <LinearLayout
-            android:id="@+id/LinearLayoutBotonesFila2"
-            android:background="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SALIR"
-                android:id="@+id/buttonSalir"
-                android:onClick="onClick"
-                android:layout_marginRight="5dp" />
-
-        </LinearLayout>
-
     <LinearLayout
-
-        android:background="@color/lightBlue"
+        android:id="@+id/LinearLayoutSeekBar"
+        android:orientation="horizontal"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content">
+
+        <SeekBar
+            android:thumbOffset="10dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/lightBlue"
+            android:id="@+id/seekBar"
+            android:layout_weight="1"
+            android:maxHeight="50dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/LinearLayoutListaCanciones"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical">
 
         <ListView
             android:choiceMode="singleChoice"
             android:drawSelectorOnTop="false"
             android:listSelector="@drawable/backgroundcolor_listacanciones"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listViewCanciones"
             android:layout_gravity="center_horizontal" />
