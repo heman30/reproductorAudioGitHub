@@ -200,9 +200,9 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
                     mediaplayer.release();
                 } // if
                 // emulator path to songs folder
-                mediaplayer = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/canciones/" + songName));
+                // mediaplayer = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/canciones/" + songName));
                 // smart-phone path to songs folder
-                // mediaplayer = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() +"/Music/"+ songName));
+                 mediaplayer = MediaPlayer.create(this, Uri.parse(Environment.getExternalStorageDirectory().getPath() +"/Music/"+ songName));
                 mediaplayer.start();
                 startSongButton.setText("PAUSAR");
                 pauseOrContinueFlag = 1;
@@ -219,9 +219,9 @@ public class AudioPlayerActivity extends AppCompatActivity implements View.OnCli
         songsListview = (ListView) findViewById(R.id.listViewCanciones);
         songsArray = new ArrayList<String>();
         // emulator path to folder containing songs
-         String pathToMusicFolder = Environment.getExternalStorageDirectory().toString() + "/canciones";
+        // String pathToMusicFolder = Environment.getExternalStorageDirectory().toString() + "/canciones";
         // smart-phone path to folder containing songs
-        // String pathToMusicFolder = Environment.getExternalStorageDirectory().toString() + "/Music/";
+        String pathToMusicFolder = Environment.getExternalStorageDirectory().toString() + "/Music/";
         File musicFolderFile = new File(pathToMusicFolder);
         File[] songs = musicFolderFile.listFiles();
         /* Log.d("**** Archivos: ", "Tamanyo: " + songs.length);
